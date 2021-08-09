@@ -16,6 +16,20 @@ const MascotaState = (props) => {
 
     const [ globalState, dispatch ] = useReducer(MascotaReducer, inicialState)
 
+    const crearMascota = async (dataForm) => {
+
+        try {
+            const res = await axios.post("http://localhost:3005/api/mascotas/crear", dataForm)
+
+            obtenerMascotas()
+
+        } catch(error) {
+
+        }
+
+    }
+
+
     const obtenerMascotas = async () => {
 
         try {
@@ -37,11 +51,41 @@ const MascotaState = (props) => {
 
     }
 
+    const actualizarMascota = async (dataForm) => {
+
+        const formMascota = {
+
+            mascotaId: dataForm._id,
+            raza: dataForm.raza
+
+        }
+
+        const res = await axios.post("http://localhost:3005/api/mascotas/actualizar", formMascota)
+
+        obtenerMascotas()
+
+    }
+
+    const eliminarMascota = async (dataForm) => {
+
+        const formMascota = {
+            mascotaId: dataForm._id
+        }
+
+        const res = await axios.post("http://localhost:3005/api/mascotas/eliminar", formMascota)
+
+        obtenerMascotas()
+
+    }
+
     return (
         <MascotaContex.Provider
             value={{
                 mascotas: globalState.mascotas,
-                obtenerMascotas
+                obtenerMascotas,
+                crearMascota,
+                actualizarMascota,
+                eliminarMascota
             }}
         >
             {props.children}

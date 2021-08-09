@@ -24,6 +24,18 @@ const ProyectoState = (props) => {
     // 3. FUNCIONES
     // NOS VAN A AYUDAR A CAPTURAR LOS EVENTOS DE LOS COMPONENTES
 
+    const crearProyecto = async (dataForm) => {
+        try {
+            const res = await axios.post("http://localhost:3005/api/proyectos/crear", dataForm)
+
+            obtenerProyectos()
+
+        } catch (error) {
+
+        }
+    }
+
+
     const obtenerProyectos = async () => {
 
         try {
@@ -44,6 +56,35 @@ const ProyectoState = (props) => {
         }
     }
 
+    const actualizarProyecto = async (dataForm) => {
+
+        const form = {
+            proyectoId: dataForm._id,
+            nombre: dataForm.nombre
+        }
+
+
+        const res = await axios.post("http://localhost:3005/api/proyectos/actualizar", form)
+        
+        obtenerProyectos()
+
+    }
+
+    const eliminarProyecto = async (dataForm) => {
+
+        const form = {
+            proyectoId: dataForm._id
+        }
+
+        const res = await axios.post("http://localhost:3005/api/proyectos/eliminar", form)
+
+        console.log(res)
+        
+        obtenerProyectos()
+
+    } 
+
+
     // 4. RETORNO DE ESTADO GLOBAL
 
     return (
@@ -51,7 +92,10 @@ const ProyectoState = (props) => {
             value={{
                 proyectos: globalState.proyectos,
                 darkMode: true,
-                obtenerProyectos
+                obtenerProyectos,
+                crearProyecto,
+                actualizarProyecto,
+                eliminarProyecto
             }}
         >
             { props.children }
