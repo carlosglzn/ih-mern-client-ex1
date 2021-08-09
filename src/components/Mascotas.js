@@ -112,10 +112,6 @@ export default function Mascotas() {
 
             </form>
 
-            {/* <button onClick={() => {obtenerMascotas()}}>
-                Obtener Mascotas
-            </button> */}
-
             {
                 mascotas.length === 0 ?
                 "No tengo mascotas"

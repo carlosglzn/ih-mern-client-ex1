@@ -19,7 +19,7 @@ const MascotaState = (props) => {
     const crearMascota = async (dataForm) => {
 
         try {
-            const res = await axios.post("http://localhost:3005/api/mascotas/crear", dataForm)
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mascotas/crear`, dataForm)
 
             obtenerMascotas()
 
@@ -34,7 +34,7 @@ const MascotaState = (props) => {
 
         try {
 
-            const res = await axios.get('http://localhost:3005/api/mascotas')
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/mascotas`)
 
             const mascotasActualizadas = res.data
 
@@ -60,7 +60,7 @@ const MascotaState = (props) => {
 
         }
 
-        const res = await axios.post("http://localhost:3005/api/mascotas/actualizar", formMascota)
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mascotas/actualizar`, formMascota)
 
         obtenerMascotas()
 
@@ -72,7 +72,7 @@ const MascotaState = (props) => {
             mascotaId: dataForm._id
         }
 
-        const res = await axios.post("http://localhost:3005/api/mascotas/eliminar", formMascota)
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/api/mascotas/eliminar`, formMascota)
 
         obtenerMascotas()
 
